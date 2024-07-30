@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@layouts/index.astro"
+import {PostsBaseURL} from "@mocks/data"
+
+import PostCard from "@ui/post-card/index.astro"
+import CardGrid from "@components/containers/card-grid.astro"
+import type { TdbType } from "@type/index"
+
+
+const response = await fetch(`${PostsBaseURL}/posts`)
+const data = await response.json()
+
+---
+
+<BaseLayout title="Posts">
+    <h1 class="text-[32px] text-slate-900 my-[30px] font-bold">Posts</h1>
+    <CardGrid>
+        {
+            data?.length ? data.map((item:TdbType)=> <PostCard data={item}/>) : <h1>Not Found</h1>
+        }
+    </CardGrid>
+</BaseLayout>
